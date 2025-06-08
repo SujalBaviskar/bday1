@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Happiest Birthday Prachiee! 🎉💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #374151; /* gray-700 */
+      --text-muted: #6b7280; /* gray-500 */
+      --font-family: 'Poppins', sans-serif;
+      --border-radius: 0.75rem;
+      --accent-color: #111827;
+      --transition-duration: 0.3s;
+
+      /* Colorful gradient backgrounds for countdown boxes */
+      --gradient-1: linear-gradient(135deg, #2563eb, #3b82f6); /* blue */
+      --gradient-2: linear-gradient(135deg, #ec4899, #f43f5e); /* pink/red */
+      --gradient-3: linear-gradient(135deg, #f59e0b, #d97706); /* amber/orange */
+      --gradient-4: linear-gradient(135deg, #10b981, #059669); /* green */
+      --countdown-text-color: #ffffff;
+      --countdown-shadow: rgba(0, 0, 0, 0.12);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--bg-color);
+      font-family: var(--font-family);
+      color: var(--text-color);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 3rem 2rem 5rem;
+      user-select: text;
+      text-align: center;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    main.container {
+      max-width: 720px;
+      width: 100%;
+    }
+
+    h1 {
+      font-size: 4rem;
+      font-weight: 700;
+      margin: 0 0 0.5rem;
+      color: var(--accent-color);
+      line-height: 1.1;
+      user-select: text;
+      /* Removed any glow or glitter effects */
+      text-shadow: none;
+      animation: none;
+    }
+
+    h2 {
+      font-size: 1.375rem;
+      font-weight: 500;
+      margin: 0 0 3rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      user-select: text;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .countdown {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.75rem;
+      text-align: center;
+      padding: 0 1rem;
+    }
+
+    .countdown-item {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      box-shadow: 0 10px 25px var(--countdown-shadow);
+      padding: 2.25rem 1.5rem;
+      cursor: default;
+      user-select: text;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--countdown-text-color);
+      font-weight: 700;
+      font-size: 3rem;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.05em;
+      transition: transform var(--transition-duration) ease, box-shadow var(--transition-duration) ease, color var(--transition-duration) ease;
+      will-change: transform, color;
+    }
+
+    /* Color gradient backgrounds for each countdown box */
+    .countdown-item:nth-child(1) {
+      background: var(--gradient-1);
+    }
+    .countdown-item:nth-child(2) {
+      background: var(--gradient-2);
+    }
+    .countdown-item:nth-child(3) {
+      background: var(--gradient-3);
+    }
+    .countdown-item:nth-child(4) {
+      background: var(--gradient-4);
+    }
+
+    .countdown-item:hover {
+      transform: scale(1.07);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      color: #fffdeb;
+    }
+
+    .countdown-label {
+      margin-top: 0.6rem;
+      font-size: 1.1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      user-select: none;
+      color: rgba(255 255 255 / 0.95);
+      text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+
+    /* Animate number changes with scale and glow */
+    @keyframes pulseScale {
+      0% {
+        transform: scale(1);
+        text-shadow: none;
+        color: var(--countdown-text-color);
+      }
+      50% {
+        transform: scale(1.2);
+        text-shadow: 0 0 15px rgba(255 255 255, 0.9);
+        color: #fffdeb;
+      }
+      100% {
+        transform: scale(1);
+        text-shadow: none;
+        color: var(--countdown-text-color);
+      }
+    }
+
+    .countdown-number.animate {
+      animation: pulseScale 0.5s ease forwards;
+    }
+
+    /* Celebration confetti container */
+    #confetti-container {
+      pointer-events: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: visible;
+      z-index: 0;
+      user-select: none;
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      opacity: 0.9;
+      border-radius: 2px;
+      animation-name: fallRotateFade;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      will-change: transform, opacity;
+    }
+
+    .circle {
+      border-radius: 50%;
+    }
+
+    @keyframes fallRotateFade {
+      0% {
+        opacity: 1;
+        transform: translate3d(0, -50px, 0) rotate(0deg);
+      }
+      100% {
+        opacity: 0;
+        transform: translate3d(var(--x-move, 0px), 110vh, 0) rotate(var(--rot, 360deg));
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 650px) {
+      main.container {
+        padding: 0 1rem 3rem;
+      }
+      h1 {
+        font-size: 3rem;
+      }
+      h2 {
+        font-size: 1.1rem;
+        max-width: 100%;
+      }
+      .countdown {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.2rem;
+      }
+      .countdown-item {
+        font-size: 2.25rem;
+        padding: 1.75rem 1rem;
+      }
+      .countdown-label {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="container" role="main" aria-label="Birthday greeting and countdown for Prachiee">
+    <h1>HAPPIEST BIRTHDAY TO YOU, PRACHIEEEE! 🎉💖</h1>
+    <h2>I’m so excited for your birthday! Just waiting to celebrate the special day of my best friend.</h2>
+
+    <section
+      class="countdown"
+      aria-live="polite"
+      aria-atomic="true"
+      aria-relevant="text"
+      role="region"
+      aria-label="Countdown to June 15"
+    >
+      <div class="countdown-item" aria-label="Days remaining">
+        <span class="countdown-number" id="days">00</span>
+        <span class="countdown-label">Days</span>
+      </div>
+      <div class="countdown-item" aria-label="Hours remaining">
+        <span class="countdown-number" id="hours">00</span>
+        <span class="countdown-label">Hours</span>
+      </div>
+      <div class="countdown-item" aria-label="Minutes remaining">
+        <span class="countdown-number" id="minutes">00</span>
+        <span class="countdown-label">Minutes</span>
+      </div>
+      <div class="countdown-item" aria-label="Seconds remaining">
+        <span class="countdown-number" id="seconds">00</span>
+        <span class="countdown-label">Seconds</span>
+      </div>
+    </section>
+  </main>
+
+  <div id="confetti-container" aria-hidden="true"></div>
+
+  <script>
+    (() => {
+      // Countdown logic
+      const daysEl = document.getElementById('days');
+      const hoursEl = document.getElementById('hours');
+      const minutesEl = document.getElementById('minutes');
+      const secondsEl = document.getElementById('seconds');
+
+      function pad(num) {
+        return String(num).padStart(2, '0');
+      }
+
+      function animateNumber(el, value) {
+        if (el.textContent === value) return;
+        el.textContent = value;
+        el.classList.remove('animate');
+        void el.offsetWidth; // trigger reflow
+        el.classList.add('animate');
+      }
+
+      function computeNextBirthday() {
+        const now = new Date();
+        const currentYear = now.getFullYear();
+        let birthday = new Date(currentYear, 5, 15, 0, 0, 0);
+        if (now > birthday) {
+          birthday = new Date(currentYear + 1, 5, 15, 0, 0, 0);
+        }
+        return birthday;
+      }
+
+      function updateCountdown() {
+        const now = new Date();
+        const target = computeNextBirthday();
+        let diff = target - now;
+        if (diff <= 0) diff = 0;
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+
+        animateNumber(daysEl, pad(days));
+        animateNumber(hoursEl, pad(hours));
+        animateNumber(minutesEl, pad(minutes));
+        animateNumber(secondsEl, pad(seconds));
+      }
+
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+
+      // Confetti animation
+      const confettiContainer = document.getElementById('confetti-container');
+      const colors = ['#ef4444', '#3b82f6', '#a78bfa', '#f59e0b', '#ec4899', '#10b981'];
+      const shapes = ['square', 'circle', 'rectangle'];
+      const confettiCount = 100;
+      const confettiElements = [];
+
+      function randomRange(min, max) {
+        return Math.random() * (max - min) + min;
+      }
+
+      function createConfettiPiece() {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+
+        // Choose shape
+        const shape = shapes[Math.floor(Math.random() * shapes.length)];
+        if (shape === 'circle') confetti.classList.add('circle');
+        else if (shape === 'rectangle') {
+          confetti.style.width = '12px';
+          confetti.style.height = '6px';
+          confetti.style.borderRadius = '2px';
+        } else {
+          confetti.style.width = '8px';
+          confetti.style.height = '8px';
+          confetti.style.borderRadius = '2px';
+        }
+
+        // Random color
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+
+        // Random horizontal start position within viewport width
+        const xStart = randomRange(0, window.innerWidth);
+        confetti.style.left = `${xStart}px`;
+
+        // Random duration between 4000 and 10000 ms
+        const duration = randomRange(4000, 10000);
+        confetti.style.animationDuration = `${duration}ms`;
+
+        // Random delay between 0 and 10000 ms
+        const delay = randomRange(0, 10000);
+        confetti.style.animationDelay = `${delay}ms`;
+
+        // Random horizontal drift and rotation
+        const xMove = randomRange(-50, 50);
+        const rotation = randomRange(360, 1080);
+        confetti.style.setProperty('--x-move', `${xMove}px`);
+        confetti.style.setProperty('--rot', `${rotation}deg`);
+
+        // Initial top position slightly above viewport
+        confetti.style.top = randomRange(-50, -100) + 'px';
+
+        confettiContainer.appendChild(confetti);
+        confettiElements.push(confetti);
+      }
+
+      for (let i = 0; i < confettiCount; i++) {
+        createConfettiPiece();
+      }
+
+      // Regenerate confetti on window resize to reposition horizontally
+      window.addEventListener('resize', () => {
+        confettiElements.forEach((e) => e.remove());
+        confettiElements.length = 0;
+        for (let i = 0; i < confettiCount; i++) {
+          createConfettiPiece();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
